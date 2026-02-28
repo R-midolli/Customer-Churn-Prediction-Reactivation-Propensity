@@ -2,7 +2,6 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.13-blue?logo=python&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-%23178CFF.svg?logo=XGBoost&logoColor=white)
-![Marimo](https://img.shields.io/badge/Marimo-000000.svg)
 ![Pytest](https://img.shields.io/badge/pytest-%23ffffff.svg?logo=pytest&logoColor=2f9fe3)
 ![uv](https://img.shields.io/badge/uv-000000.svg)
 
