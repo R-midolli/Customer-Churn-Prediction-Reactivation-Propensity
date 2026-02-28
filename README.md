@@ -58,7 +58,7 @@ Our strategy is based on a direct Return on Investment (ROI) calculation, with a
 ├── notebooks/
 │   ├── 01_eda.py        # Data Analysis & Purchasing Behavior
 │   ├── 02_model.py      # ML Training, Threshold Opt, SHAP
-│   └── 03_demo.py       # Interactive ROI Simulator (Marimo app)
+│   └── 03_demo.ipynb    # Interactive ROI Simulator (Jupyter Dashboard)
 └── src/
     ├── data.py          # Dunnhumby Data Ingestion Pipeline
     ├── features.py      # RFM & Temporal Feature Engineering
@@ -84,7 +84,7 @@ uv run python -c "from src.data import download_dunnhumby; download_dunnhumby()"
 # 3. Train the XGBoost model
 uv run python -m src.model
 
-# 4. Launch interactive demo
-uv run marimo run notebooks/03_demo.py
+# 4. Launch interactive dashboard
+uv run jupyter notebook notebooks/03_demo.ipynb
 ```
 
