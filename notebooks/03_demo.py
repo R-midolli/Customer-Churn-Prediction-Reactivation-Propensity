@@ -11,13 +11,13 @@ def __():
 @app.cell
 def __(mo):
     mo.md(
-        \"\"\"
+        """
         # 📊 Customer Churn Prediction & Reactivation ROI
         
         ## Business Challenge
         🇫🇷 **FR:** Comment identifier les clients FMCG sur le point de churner et allouer un budget de réactivation de façon rentable ?
         🇬🇧 **EN:** How to identify FMCG customers at risk of churning and allocate reactivation budgets profitably?
-        \"\"\"
+        """
     )
     return
 
