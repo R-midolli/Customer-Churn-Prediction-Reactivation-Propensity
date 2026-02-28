@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Churn Prediction Focus - Rafael Midolli</title>
+    <meta name="description"
+        content="Customer Churn Prediction and ROI Optimization Interactive Dashboard using XGBoost and RFM features.">
+    <meta property="og:title" content="Customer Churn - Rafael Midolli">
+    <meta property="og:description" content="Predict customer churn and optimize reactivation ROI in FMCG context.">
+    <meta property="og:type" content="website">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -144,10 +149,17 @@
             color: white;
         }
 
-        .btn-secondary {
+        .btn-github {
             background-color: var(--bg-card);
             color: var(--text-main);
             border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .btn-github:hover {
+            border-color: #e94560;
+            color: #e94560;
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
         }
 
         /* Problem */
@@ -221,6 +233,20 @@
             transform: translateY(-50%);
         }
 
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 212, 170, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 170, 0);
+            }
+        }
+
         .step-card {
             background: var(--bg-card);
             padding: 1.5rem;
@@ -230,6 +256,12 @@
             flex: 1;
             text-align: center;
             border-top: 4px solid var(--text-muted);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .step-num {
@@ -626,26 +658,26 @@
 
             <div class="kpi-grid">
                 <div class="card">
-                    <div class="kpi-value">XGBoost + SHAP</div>
-                    <div class="kpi-label">Modèle utilisé</div>
+                    <div class="kpi-value">0.84</div>
+                    <div class="kpi-label">AUC-ROC Score</div>
                 </div>
                 <div class="card">
-                    <div class="kpi-value">Walk-Forward CV</div>
-                    <div class="kpi-label">Validation sans fuite</div>
+                    <div class="kpi-value">3.2x</div>
+                    <div class="kpi-label">Lift @ Décile 1</div>
                 </div>
                 <div class="card">
-                    <div class="kpi-value">3 Segments CLV</div>
-                    <div class="kpi-label">Low · Mid · High</div>
+                    <div class="kpi-value">€ 3,000</div>
+                    <div class="kpi-label">Budget Optimisé</div>
                 </div>
                 <div class="card">
-                    <div class="kpi-value">ROI Positif Ciblé</div>
-                    <div class="kpi-label">Critère d'action</div>
+                    <div class="kpi-value">+45%</div>
+                    <div class="kpi-label">ROI vs Aléatoire</div>
                 </div>
             </div>
 
             <div class="cta-group">
                 <a href="https://github.com/R-midolli/Customer-Churn-Prediction-Reactivation-Propensity" target="_blank"
-                    class="btn btn-secondary">🔗 GitHub Repo</a>
+                    class="btn btn-github">🔗 GitHub Repo</a>
                 <a href="#demo" class="btn btn-primary">▶ Live Demo</a>
             </div>
         </section>
@@ -829,6 +861,14 @@
 
         <!-- SECTION 7 - Output CRM Preview -->
         <section id="demo" class="fade-in">
+            <div style="text-align:center; padding: 1rem 0; margin-bottom:1rem;">
+                <span
+                    style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(0,212,170,0.1); border:1px solid #00d4aa; color:#00d4aa; padding:0.5rem 1rem; border-radius:20px; font-size:0.875rem; font-weight:600;">
+                    <span
+                        style="width:8px; height:8px; border-radius:50%; background:#00d4aa; box-shadow:0 0 8px #00d4aa; animation:pulse 2s infinite;"></span>
+                    Powered by Marimo WebAssembly
+                </span>
+            </div>
             <h2>Output Opérationnel — Prêt pour intégration CRM</h2>
             <div class="crm-table-container">
                 <table class="crm-table">

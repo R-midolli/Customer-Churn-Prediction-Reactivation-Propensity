@@ -5,6 +5,7 @@ error_out.txt
 ruff_out.txt
 test_out.txt
 hello.py
+.marimo/
 
 # Data (never commit)
 data/raw/
@@ -15,6 +16,8 @@ data/outputs/
 __pycache__/
 *.pyc
 *.pyo
+.venv/
+.pytest_cache/
 
 # IDE
 .antigravity/
