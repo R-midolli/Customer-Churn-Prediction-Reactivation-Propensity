@@ -1,0 +1,25 @@
+F841 Local variable `test_leakage` is assigned to but never used
+   --> src\features.py:146:5
+    |
+144 |     assert X.index.equals(y.index), "X and y indices do not match!"
+145 |     # Ensure no data leakage
+146 |     test_leakage = transactions[transactions["date"] >= reference_date]
+    |     ^^^^^^^^^^^^
+147 |     # In a real rigorous check, we'd mock transactions. But the logic above filters mask < reference_date.
+    |
+help: Remove assignment to unused variable `test_leakage`
+
+F841 Local variable `dates` is assigned to but never used
+  --> tests\test_features.py:12:5
+   |
+10 | def test_features():
+11 |     # build a small mock transactions df
+12 |     dates = pd.date_range("2013-01-01", "2013-03-31")
+   |     ^^^^^
+13 |     df = pd.DataFrame(
+14 |         {
+   |
+help: Remove assignment to unused variable `dates`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).

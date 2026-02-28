@@ -1,0 +1,8 @@
+pandas
+xgboost
+shap
+marimo
+python-dotenv
+kagglehub
+scikit-learn
+plotly

@@ -1,0 +1,116 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\rafae\workspace\Customer Churn Prediction & Reactivation Propensity
+configfile: pyproject.toml
+plugins: anyio-4.12.1, cov-7.0.0
+collected 8 items / 7 deselected / 1 selected
+
+tests\test_features.py F                                                 [100%]
+
+================================== FAILURES ===================================
+__________________________ test_build_feature_matrix __________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000278180EEB10>
+
+    def test_build_feature_matrix(monkeypatch):
+        import src.features
+    
+        # Mock data
+        df = pd.DataFrame(
+            {
+                "household_key": [1, 2],
+                "BASKET_ID": [101, 103],
+                "DAY": [10, 20],
+                "SALES_VALUE": [10.0, 30.0],
+                "COUPON_DISC": [0, 0],
+                "COUPON_MATCH_DISC": [0, 0],
+                "RETAIL_DISC": [0, 0],
+                "PRODUCT_ID": [10, 10],
+                "COMMODITY_DESC": ["A", "A"],
+            }
+        )
+        df["date"] = pd.Timestamp("2012-01-01") + pd.to_timedelta(df["DAY"] - 1, unit="D")
+    
+        def mock_read_csv(filepath, **kwargs):
+            if "product.csv" in filepath:
+                return pd.DataFrame({"PRODUCT_ID": [10, 30], "COMMODITY_DESC": ["A", "A"]})
+            return df
+    
+        monkeypatch.setattr(src.features.pd, "read_csv", mock_read_csv)
+    
+        # also mock load_transactions inside build_feature_matrix
+        def mock_load():
+            return df
+    
+        monkeypatch.setattr("src.data.load_transactions", mock_load)
+    
+>       X, y = build_feature_matrix(pd.Timestamp("2012-02-01"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_features.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\features.py:124: in build_feature_matrix
+    behav = compute_behavioral(transactions, reference_date)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\features.py:42: in compute_behavioral
+    behav = period_tx_copy.groupby("household_key").agg(
+.venv\Lib\site-packages\pandas\core\groupby\generic.py:2291: in aggregate
+    result = op.agg()
+             ^^^^^^^^
+.venv\Lib\site-packages\pandas\core\apply.py:294: in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\apply.py:511: in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\apply.py:1677: in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+.venv\Lib\site-packages\pandas\core\apply.py:550: in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pandas.core.apply.GroupByApply object at 0x000002783359CCD0>
+how = 'agg'
+obj =    household_key  BASKET_ID  DAY  ...       date  COMMODITY_DESC_y  has_discount
+0              1        101   10  ......A         False
+1              2        103   20  ... 2012-01-20                 A         False
+
+[2 rows x 12 columns]
+func = defaultdict(None, {'COMMODITY_DESC': ['nunique'], 'has_discount': ['mean']})
+
+    def normalize_dictlike_arg(
+        self, how: str, obj: DataFrame | Series, func: AggFuncTypeDict
+    ) -> AggFuncTypeDict:
+        """
+        Handler for dict-like argument.
+    
+        Ensures that necessary columns exist if obj is a DataFrame, and
+        that a nested renamer is not passed. Also normalizes to all lists
+        when values consists of a mix of list and non-lists.
+        """
+        assert how in ("apply", "agg", "transform")
+    
+        # Can't use func.values(); wouldn't work for a Series
+        if (
+            how == "agg"
+            and isinstance(obj, ABCSeries)
+            and any(is_list_like(v) for _, v in func.items())
+        ) or (any(is_dict_like(v) for _, v in func.items())):
+            # GH 15931 - deprecation of renaming keys
+            raise SpecificationError("nested renamer is not supported")
+    
+        if obj.ndim != 1:
+            # Check for missing columns on a frame
+            from pandas import Index
+    
+            cols = Index(list(func.keys())).difference(obj.columns, sort=True)
+            if len(cols) > 0:
+                # GH 58474
+>               raise KeyError(f"Label(s) {list(cols)} do not exist")
+E               KeyError: "Label(s) ['COMMODITY_DESC'] do not exist"
+
+.venv\Lib\site-packages\pandas\core\apply.py:762: KeyError
+=========================== short test summary info ===========================
+FAILED tests/test_features.py::test_build_feature_matrix - KeyError: "Label(s...
+====================== 1 failed, 7 deselected in 10.76s =======================
