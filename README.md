@@ -57,14 +57,35 @@ Our strategy is based on a direct Return on Investment (ROI) calculation, with a
 .
 ├── notebooks/
 │   ├── 01_eda.py        # Data Analysis & Purchasing Behavior
-│   ├── 02_model.py      # ML Training, Threshold Opt, SHAP
-│   └── 03_demo.ipynb    # Interactive ROI Simulator (Jupyter Dashboard)
-└── src/
-    ├── data.py          # Dunnhumby Data Ingestion Pipeline
-    ├── features.py      # RFM & Temporal Feature Engineering
-    ├── model.py         # XGBoost & Optimization Logic
-    └── roi.py           # CLV Segmentation & Coupon Recommendation
+│   └── 02_model.py      # ML Training, Threshold Opt, SHAP
+├── src/
+│   ├── data.py          # Data ingestion and cleaning
+│   ├── features.py      # RFM & interaction features
+│   └── model.py         # XGBoost and walk-forward validation
+└── README.md
 ```
+
+---
+
+## 🛠️ Tech Stack & Methodology
+
+- **Data Processing:** `pandas`, `scikit-learn`
+- **Modeling:** `xgboost` with walk-forward temporal validation
+- **Interpretation:** `shap` for feature importance
+- **Package Management:** `uv` for reproducible environments
+- **Dashboarding:** Native HTML/JS simulation embedded seamlessly on the Portfolio (Mocking Python calculations instantly on the client-side).
+
+## 🚀 Interactive Demo
+
+The predictive results and financial optimization matrix are live on my portfolio. You can test the impact of varying risk thresholds and campaign budgets dynamically:
+
+👉 **[View Interactive Dashboard Simulator](https://r-midolli.github.io/portfolio_rafael_midolli/project-churn.html)**
+
+## 🏆 Key Takeaways
+
+1.  **Targeted Optimization:** Discounting only High-CLV clients on the brink of churning yields much higher net ROI than carpet-bombing.
+2.  **Business Alignment:** Tuning the decision threshold based on campaign cost transforms an ML probability score into an actionable financial lever.
+3.  **Execution Speed:** Exporting the 'Hot Leads' matrix enables daily automated reactivation campaigns via CRM.
 
 ---
 
@@ -83,8 +104,4 @@ uv run python -c "from src.data import download_dunnhumby; download_dunnhumby()"
 
 # 3. Train the XGBoost model
 uv run python -m src.model
-
-# 4. Launch interactive dashboard
-uv run jupyter notebook notebooks/03_demo.ipynb
 ```
-
