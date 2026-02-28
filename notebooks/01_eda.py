@@ -23,9 +23,9 @@ def __(mo):
 
 @app.cell
 def __(mo, pd, px):
-    mo.md("## Carregando Dados")
-    # Para o portfólio, podemos apenas mostrar código ou dados mockados caso o volume encareça o app demo
-    # Aqui vamos usar um sample simples
+    mo.md("## Data Loading / Chargement des Données")
+    # For the portfolio, we can just show code or mocked data if volume makes the demo app slow
+    # Here we will use a simple sample
     return
 
 if __name__ == "__main__":

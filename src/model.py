@@ -28,7 +28,7 @@ def train_churn_model(X: pd.DataFrame, y: pd.Series, evaluate_cv: bool = True):
         # or we just rely on the order of household_keys for CV simplicity. We assume data is sorted.
         tscv = TimeSeriesSplit(n_splits=4)
         for train_idx, val_idx in tscv.split(X):
-            assert train_idx.max() < val_idx.min(), "DATA LEAKAGE DETECTADO"
+            assert train_idx.max() < val_idx.min(), "DATA LEAKAGE DETECTED"
             # Optional: calculate CV scores
 
     # Train final model on all data

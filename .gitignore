@@ -1,2 +1,22 @@
-
 .env
+
+# Temp outputs
+error_out.txt
+ruff_out.txt
+test_out.txt
+hello.py
+
+# Data (never commit)
+data/raw/
+data/processed/
+data/outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.antigravity/
+.cursor/
+.vscode/
